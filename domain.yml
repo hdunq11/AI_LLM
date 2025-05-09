@@ -1,0 +1,63 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - thank_you
+  - ask_food_info
+  - inform_food_name
+  - ask_food_location
+  - ask_food_price
+  - ask_all_foods
+
+entities:
+  - food_name
+
+
+actions:
+  - action_provide_food_info
+  - action_provide_food_location
+  - action_list_many_foods
+  - action_provide_food_price
+  - utter_greet
+  - utter_goodbye
+  - utter_you_are_welcome
+# Phiên bản rasa >= 3x thì mỗi slot phải có mapping để biết đang nhận giá trị từ entity nào
+slots:
+  food_name:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: food_name
+
+  shown_foods_indices:
+    type: list
+    influence_conversation: false
+    mappings:
+      - type: controlled
+
+  
+      
+responses:
+  utter_greet:
+    - text: "Xin chào! Mình là chatbot tư vấn địa điểm ăn uống ở Đà Nẵng. Bạn muốn tìm món gì ngon hôm nay?"
+    - text: "Chào bạn! Rất vui được gặp bạn. Mình có thể gợi ý những quán ăn ngon tại Đà Nẵng cho bạn nhé!"
+    - text: "Xin chào! Mình là trợ lý ảo về ẩm thực Đà Nẵng. Bạn đang muốn ăn gì hay tìm quán ở khu vực nào?"
+    - text: "Chào mừng bạn! Mình sẽ giúp bạn khám phá những món ngon tại Đà Nẵng. Bạn đang tìm món ăn gì vậy?"
+    - text: "Xin chào! Đà Nẵng có rất nhiều món ngon đang chờ bạn thưởng thức. Mình có thể giúp gì hôm nay?"
+
+  utter_goodbye:
+    - text: "Tạm biệt! Chúc bạn thưởng thức được nhiều món ngon tại Đà Nẵng nhé!"
+    - text: "Chúc bạn có những trải nghiệm ẩm thực tuyệt vời ở Đà Nẵng! Tạm biệt!"
+    - text: "Rất vui được giúp bạn tìm quán ăn ngon. Hẹn gặp lại bạn lần sau nhé!"
+    - text: "Tạm biệt và chúc bạn có hành trình khám phá ẩm thực Đà Nẵng thật thú vị!"
+    - text: "Cảm ơn bạn đã trò chuyện. Nếu cần thêm gợi ý món ăn, hãy quay lại với mình nhé!"
+
+  utter_you_are_welcome:
+    - text: "Không có gì cả, rất vui được tư vấn cho bạn!"
+    - text: "Không có chi bạn ơi, bạn cần mình giúp gì thêm không?"
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

@@ -1,0 +1,85 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - thank_you
+  - ask_food_info
+  - inform_food_name
+  - ask_all_foods
+  - ask_food_price
+  - ask_food_location
+  - ask_hotel_info
+  - inform_hotel_name
+  - ask_all_hotels
+  - ask_hotel_price
+  - ask_hotel_location
+  - inform_tour_name
+  - ask_tour_info
+  - ask_tour_price
+  - ask_review_tour
+  - ask_all_tours
+  - request_list_transportations
+  - request_transportation_info
+  - inform_transportation_name
+  - request_transportation_routes
+  - request_transportation_office
+  - request_transportation_hotline
+  - ask_travel_expenses_by_group
+  - ask_travel_expenses_by_time
+  - ask_travel_expenses_by_duration
+  - ask_travel_expenses_combined
+  - ask_travel_expenses_by_tour_type
+
+entities:
+  - food_name
+  - hotel_name
+  - tour_name
+  - transportation_name
+  - expenses_composition
+  - time
+  - number_of_days
+  - type_of_tour
+
+# Phiên bản rasa >= 3x thì mỗi slot phải có mapping để biết đang nhận giá trị từ entity nào
+slots:
+  food_name:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: food_name
+
+  shown_foods_indices:
+    type: list
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+  
+      
+responses:
+  utter_greet:
+    - text: "Xin chào! Mình là chatbot tư vấn du lịch Đà Nẵng. Bạn muốn biết gì về Đà Nẵng nào?"
+    - text: "Chào bạn! Rất vui được gặp bạn. Mình có thể giúp gì cho chuyến du lịch Đà Nẵng của bạn?"
+    - text: "Xin chào! Mình là trợ lý ảo về du lịch Đà Nẵng. Bạn có kế hoạch gì cho chuyến đi sắp tới không?"
+    - text: "Chào mừng bạn! Mình sẽ giúp bạn khám phá thành phố Đà Nẵng xinh đẹp. Bạn muốn biết thông tin gì nào?"
+    - text: "Xin chào! Đà Nẵng đang chờ bạn khám phá. Mình có thể giúp gì cho bạn hôm nay?"
+
+  utter_goodbye:
+    - text: "Tạm biệt! Hẹn gặp lại bạn khi khám phá Đà Nẵng nhé!"
+    - text: "Chúc bạn có chuyến đi Đà Nẵng thật vui vẻ! Tạm biệt!"
+    - text: "Rất vui được giúp bạn. Chúc bạn có kỳ nghỉ tuyệt vời tại Đà Nẵng!"
+    - text: "Tạm biệt và hẹn gặp lại bạn nhé! Đà Nẵng luôn chào đón bạn quay trở lại."
+    - text: "Cảm ơn bạn đã trò chuyện. Nếu cần thêm thông tin về Đà Nẵng, hãy quay lại nhé!"
+
+  
+actions:
+  - action_provide_food_info
+  - action_list_many_foods
+  - action_provide_food_price
+  - action_provide_food_location
+  
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
